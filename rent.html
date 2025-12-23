@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smiley Car — Rent</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Remove browser autofill icons */
+    input::-webkit-contacts-auto-fill-button,
+    input::-webkit-credentials-auto-fill-button {
+      visibility: hidden !important;
+      display: none !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      width: 0 !important;
+      margin: 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-wrap">
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" alt="Smiley Cars" />
+        <div>
+          <h1>Smiley Cars</h1>
+          <div class="tag muted">Safe • Comfortable • Pleasant</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rent.html" class="nav-link active">Rent</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+        <button id="themeToggle2" class="theme-btn">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <section class="wrap wizard-wrap">
+      <div class="wizard-card card">
+
+        <h3>Book Your Rental</h3>
+
+        <!-- STEPS -->
+        <div class="steps">
+          <div class="step active" data-step="1">1. Details</div>
+          <div class="step" data-step="2">2. Review</div>
+        </div>
+
+        <form id="wizardForm" onsubmit="return false;">
+
+          <!-- STEP 1 -->
+          <div data-steppanel="1" class="step-panel">
+
+            <div class="form-row">
+              <input id="w_name" placeholder="Full Name" required autocomplete="off" />
+              <input id="w_phone" placeholder="Phone Number" required autocomplete="off" />
+            </div>
+
+            <div class="form-row">
+              <label class="field">
+                <span>Passengers</span>
+                <select id="w_passengers">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Rental Type</span>
+                <select id="w_rentalType">
+                  <option value="with_driver">With Driver</option>
+                  <option value="self_drive">Self Drive</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label class="field full">
+                <span>Number of Days</span>
+                <input id="w_days" type="number" min="1" value="1" />
+              </label>
+            </div>
+
+            <!-- FROM / TO LOCATION (MANUAL ENTRY) -->
+            <div class="form-row">
+              <input 
+                id="w_from" 
+                placeholder="From location (City / Area / Landmark)" 
+                list="locations"
+                required />
+
+              <input 
+                id="w_to" 
+                placeholder="To location (City / Area / Landmark)" 
+                list="locations"
+                required />
+            </div>
+
+            <!-- HELPER TEXT -->
+            <p class="muted" style="margin-top:6px;">
+              
+            </p>
+
+            <!-- ACTION BUTTONS -->
+            <div class="form-row actions">
+              <button id="toReview" class="btn btn-primary">Review</button>
+              <a href="index.html" class="btn btn-ghost">Cancel</a>
+            </div>
+
+          </div>
+
+          <!-- STEP 2 -->
+          <div data-steppanel="2" class="step-panel hidden">
+
+            <h4>Review Your Details</h4>
+
+            <div class="review-list">
+              <div><strong>Name:</strong> <span id="r_name"></span></div>
+              <div><strong>Phone:</strong> <span id="r_phone"></span></div>
+              <div><strong>Passengers:</strong> <span id="r_passengers"></span></div>
+              <div><strong>Rental Type:</strong> <span id="r_rentalType"></span></div>
+              <div><strong>Days:</strong> <span id="r_days"></span></div>
+              <div><strong>From:</strong> <span id="r_pickup"></span></div>
+              <div><strong>To:</strong> <span id="r_drop"></span></div>
+            </div>
+
+            <div class="form-row actions">
+              <button id="backToDetails" class="btn btn-ghost">Back</button>
+              <button id="confirmBooking" class="btn btn-primary">Proceed to Payment</button>
+            </div>
+
+          </div>
+
+        </form>
+
+        <!-- COMMON LOCATION SUGGESTIONS -->
+        <datalist id="locations">
+          <option value="Vijayawada">
+          <option value="Gannavaram">
+          <option value="Hyderabad">
+          <option value="Visakhapatnam">
+          <option value="Bengaluru">
+          <option value="Chennai">
+          <option value="Tirupati">
+          <option value="Rajahmundry">
+          <option value="Eluru">
+          <option value="Kurnool">
+        </datalist>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <div>© <span id="year2"></span> Smiley Car</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

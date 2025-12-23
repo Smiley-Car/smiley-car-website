@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smiley Car — Admin Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="admin-body">
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="admin-title-wrap">
+      <img src="assets/logo.png" class="admin-logo" alt="Smiley Cars">
+      <h1 class="admin-title">Smiley Car — Admin Panel</h1>
+    </div>
+
+    <button class="admin-home-btn" onclick="goHome()">🏠 Home</button>
+  </header>
+
+  <!-- LOGIN BOX -->
+  <main class="admin-container">
+
+    <div id="loginBox" class="card" style="max-width:420px;margin:40px auto;text-align:center;">
+      <h2>Admin Login</h2>
+      <p class="muted">Enter your PIN to access the bookings</p>
+
+      <input 
+        id="adminPin" 
+        type="password" 
+        placeholder="Enter Admin PIN"
+        style="padding:12px;width:80%;border-radius:12px;border:1px solid #ccc;margin-top:14px;"
+      />
+
+      <button id="loginBtn" class="btn btn-primary" style="margin-top:18px;width:50%">
+        Login
+      </button>
+
+      <p class="muted small" style="margin-top:10px">Default PIN: 1234</p>
+    </div>
+
+    <!-- ADMIN DASHBOARD PANEL -->
+    <div id="adminPanel" style="display:none;">
+
+      <!-- Action Buttons -->
+      <div class="admin-actions card">
+        <button id="exportCsv" class="btn btn-primary">⬇ Export CSV</button>
+        <button id="clearAll" class="btn btn-danger">🗑 Clear All Bookings</button>
+      </div>
+
+      <!-- Bookings Table -->
+      <div id="bookingsList" class="admin-table card">
+        <!-- JS Injects Content Here -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="script.js" defer></script>
+  <script src="admin.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+/* Admin Dashboard Styling — Smiley Cars */
+
+/* Layout */
+.admin-body {
+  background: #f7f8fa;
+  font-family: "Inter", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-header {
+  background: white;
+  padding: 18px 28px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.admin-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.admin-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.admin-container {
+  max-width: 1300px;
+  margin: 32px auto;
+  padding: 0 20px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  margin-bottom: 22px;
+}
+
+/* Action bar */
+.admin-actions {
+  display: flex;
+  gap: 14px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-ghost {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Table */
+.admin-table {
+  overflow-x: auto;
+  border-radius: 16px;
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.admin-table th {
+  text-align: left;
+  font-weight: 700;
+  padding: 12px 10px;
+  color: #475569;
+}
+
+.admin-table td {
+  padding: 14px 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Status Badges */
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-paid {
+  background: #16a34a;
+  color: white;
+}
+
+.badge-pending {
+  background: #f59e0b;
+  color: white;
+}
+
+.badge-confirmed {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-completed {
+  background: #10b981;
+  color: white;
+}
+
+.badge-cancelled {
+  background: #ef4444;
+  color: white;
+}
+
+/* Action buttons inside rows */
+.row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Return Home Button */
+.admin-home-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 15px;
+  position: absolute;
+  right: 28px;
+  top: 22px;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+  transition: 0.2s;
+}
+
+.admin-home-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.row-highlight {
+  animation: flashRow 1.5s ease-in-out;
+}
+
+@keyframes flashRow {
+  0% { background: #fff8d6; }
+  100% { background: white; }
+}

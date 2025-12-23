@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smiley Car — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-wrap">
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" alt="Smiley Cars"/>
+        <div>
+          <h1>Smiley Car</h1>
+          <div class="tag muted">Safe • Comfortable • Pleasant</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rent.html" class="nav-link">Rent</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero hero-home">
+      <div class="wrap hero-inner">
+        <div class="hero-left">
+          <h2 class="hero-title">Premium Car Rental</h2>
+          <p class="hero-sub">Daily rentals • With driver or self-drive • Fast booking & friendly service</p>
+          <a href="rent.html" class="btn btn-cta">Rent Now</a>
+        </div>
+
+        <div class="hero-right">
+          <picture>
+            <source srcset="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1600&auto=format&fit=crop&crop=entropy" />
+            <img class="hero-car" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop&crop=entropy" alt="Yellow premium SUV">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap features">
+      <div class="feature-cards">
+        <div class="feature card">
+          <h4>Comfort</h4>
+          <p class="muted">Clean, well-maintained vehicles and courteous drivers</p>
+        </div>
+        <div class="feature card">
+          <h4>Flexible</h4>
+          <p class="muted">Daily rentals, self-drive or with driver</p>
+        </div>
+        <div class="feature card">
+          <h4>24/7 Support</h4>
+          <p class="muted">We are here whenever you need us</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <div>© <span id="year"></span> Smiley Car Travel Service</div>
+      <div class="footer-links">
+        <a href="rent.html">Rent</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

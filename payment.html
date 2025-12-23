@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smiley Car — Payment</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="wrap header-wrap">
+    <div class="brand">
+      <img src="assets/logo.png" class="logo" alt="Smiley Cars" />
+      <div>
+        <h1>Smiley Car</h1>
+        <div class="tag muted">Safe • Comfortable</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="rent.html" class="nav-link">Rent</a>
+      <a href="admin.html" class="nav-link">Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap payment-wrap">
+  <div class="payment-card card centered-card">
+
+    <h3>Deposit / Payment</h3>
+    <p class="muted">Scan the QR below and complete your payment.</p>
+
+    <img src="assets/qr.png" class="qr-image center-qr" alt="QR Code" />
+
+    <div class="pay-actions center">
+      <button id="paidButtonPayPage" class="btn btn-primary">
+        I Have Paid
+      </button>
+      <a href="index.html" class="btn btn-ghost">Back to Home</a>
+    </div>
+
+    <p class="muted small">Payment will be linked to your latest booking.</p>
+  </div>
+</main>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <button class="modal-close" id="modalClose">&times;</button>
+
+    <h4>Confirm Payment</h4>
+    <p class="muted">Fill details to notify Smiley Car.</p>
+
+    <label>
+      Payor Name
+      <input id="payorName" placeholder="Name on payment" />
+    </label>
+
+    <label>
+      Payor Email
+      <input id="payorEmail" type="email" placeholder="example@gmail.com" />
+    </label>
+
+    <label>
+      Transaction / UPI Ref
+      <input id="txnId" placeholder="Transaction ID" />
+    </label>
+
+    <div class="modal-actions">
+      <button id="confirmPaid" class="btn btn-primary">
+        Confirm & Send Email
+      </button>
+      <button id="cancelPaid" class="btn btn-ghost">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("9vnhU8ctG-s65ELNx6Bd5");
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
