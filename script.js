@@ -195,7 +195,7 @@ async function applyPaymentAndSendEmail({ payorName, payorEmail, transactionId }
   // EMAILJS SEND
   return emailjs.send(
     "service_y364n5h",   // ✅ your Service ID
-    "template_kmvj8ky",  // ✅ your Template ID
+    "template_lvj5bx7",  // ✅ your Template ID
     {
       booking_id: booking.id,
       name: booking.name,
@@ -221,3 +221,4 @@ window.smileyHelpers = {
   saveAllBookings: (list) =>
     localStorage.setItem("smiley_bookings", JSON.stringify(list))
 };
+
