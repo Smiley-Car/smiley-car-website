@@ -1,54 +1,54 @@
 // ------------------------------------------------------
-// Smiley Cars — script.js (EMAILJS FIXED & VERIFIED)
+// Smiley Cars — script.js (FINAL FIXED VERSION)
 // ------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  // ✅ INITIALIZE EMAILJS (THIS WAS MISSING)
-  if (window.emailjs) {
-    emailjs.init("9vnhU8ctG-s65ELNx6Bd5"); // ✅ YOUR PUBLIC KEY
-    console.log("✅ EmailJS initialized");
-  } else {
-    console.error("❌ EmailJS SDK not loaded");
-  }
 
   // Footer year
   document.querySelectorAll("#year, #year2").forEach(el => {
     if (el) el.textContent = new Date().getFullYear();
   });
 
-  if (document.getElementById("wizardForm")) initRentWizard();
-  if (document.querySelector(".payment-wrap")) initPaymentPage();
+  if (document.getElementById("wizardForm")) {
+    initRentWizard();
+  }
+
+  if (document.querySelector(".payment-wrap")) {
+    initPaymentPage();
+  }
 });
 
-/* ======================================================
-   RENT PAGE
-====================================================== */
+/* ================= RENT PAGE ================= */
 function initRentWizard() {
 
-  toReview.onclick = e => {
+  document.getElementById("toReview").addEventListener("click", e => {
     e.preventDefault();
 
-    if (!w_name.value || !w_phone.value || !w_from.value || !w_to.value) {
-      alert("Please fill all fields");
-      return;
+    const required = ["w_name", "w_phone", "w_from", "w_to"];
+    for (const id of required) {
+      if (!document.getElementById(id).value.trim()) {
+        alert("Please fill all required fields");
+        return;
+      }
     }
 
-    r_name.textContent = w_name.value;
-    r_phone.textContent = w_phone.value;
-    r_passengers.textContent = w_passengers.value;
-    r_rentalType.textContent =
+    document.getElementById("r_name").textContent = w_name.value;
+    document.getElementById("r_phone").textContent = w_phone.value;
+    document.getElementById("r_passengers").textContent = w_passengers.value;
+    document.getElementById("r_rentalType").textContent =
       w_rentalType.value === "self_drive" ? "Self Drive" : "With Driver";
-    r_days.textContent = w_days.value;
-    r_pickup.textContent = w_from.value;
-    r_drop.textContent = w_to.value;
+    document.getElementById("r_days").textContent = w_days.value;
+    document.getElementById("r_pickup").textContent = w_from.value;
+    document.getElementById("r_drop").textContent = w_to.value;
 
     showWizardStep(2);
-  };
+  });
 
-  backToDetails.onclick = () => showWizardStep(1);
+  document.getElementById("backToDetails").onclick = () => showWizardStep(1);
 
-  confirmBooking.onclick = () => {
+  document.getElementById("confirmBooking").onclick = e => {
+    e.preventDefault();
+
     const booking = {
       id: "B" + Date.now(),
       name: w_name.value,
@@ -58,15 +58,14 @@ function initRentWizard() {
       days: w_days.value,
       pickup: w_from.value,
       drop: w_to.value,
-      paymentStatus: "pending",
-      createdAt: new Date().toISOString()
+      paymentStatus: "pending"
     };
 
-    const all = JSON.parse(localStorage.getItem("smiley_bookings") || "[]");
-    all.unshift(booking);
-    localStorage.setItem("smiley_bookings", JSON.stringify(all));
+    const list = JSON.parse(localStorage.getItem("smiley_bookings") || "[]");
+    list.unshift(booking);
+    localStorage.setItem("smiley_bookings", JSON.stringify(list));
 
-    location.href = "payment.html";
+    window.location.href = "payment.html";
   };
 }
 
@@ -79,23 +78,30 @@ function showWizardStep(step) {
   );
 }
 
-/* ======================================================
-   PAYMENT PAGE + EMAILJS
-====================================================== */
+/* ================= PAYMENT PAGE ================= */
 function initPaymentPage() {
 
+  const modal = document.getElementById("paymentModal");
+
   paidButtonPayPage.onclick = () => {
-    paymentModal.setAttribute("aria-hidden", "false");
+    if (!JSON.parse(localStorage.getItem("smiley_bookings") || "[]").length) {
+      alert("No booking found");
+      return;
+    }
+    modal.setAttribute("aria-hidden", "false");
   };
 
-  modalClose.onclick = cancelPaid.onclick = () => {
-    paymentModal.setAttribute("aria-hidden", "true");
-  };
+  modalClose.onclick = cancelPaid.onclick = () =>
+    modal.setAttribute("aria-hidden", "true");
 
   confirmPaid.onclick = async () => {
 
-    if (!payorName.value || !payorEmail.value || !txnId.value) {
-      alert("Fill all payment fields");
+    const payorName = payorNameInput.value.trim();
+    const payorEmail = payorEmailInput.value.trim();
+    const txnId = txnIdInput.value.trim();
+
+    if (!payorName || !payorEmail || !txnId) {
+      alert("Please fill all payment details");
       return;
     }
 
@@ -103,31 +109,29 @@ function initPaymentPage() {
 
     try {
       await emailjs.send(
-        "service_y364n5h",      // ✅ SERVICE ID
-        "template_lvj5bx7",     // ✅ TEMPLATE ID
+        "service_y364n5h",
+        "template_lvj5bx7",
         {
-          title: "New Payment Received",
+          booking_id: booking.id,
           name: booking.name,
-          email: payorEmail.value,
-          message: `
-Booking ID: ${booking.id}
-Phone: ${booking.phone}
-From: ${booking.pickup}
-To: ${booking.drop}
-Passengers: ${booking.passengers}
-Days: ${booking.days}
-Payor: ${payorName.value}
-Transaction ID: ${txnId.value}
-          `
+          phone: booking.phone,
+          pickup: booking.pickup,
+          drop: booking.drop,
+          passengers: booking.passengers,
+          rentalType: booking.rentalType,
+          days: booking.days,
+          payor_name: payorName,
+          payor_email: payorEmail,
+          transaction_id: txnId
         }
       );
 
-      alert("✅ Payment confirmed & email sent");
-      paymentModal.setAttribute("aria-hidden", "true");
-      location.href = "index.html";
+      alert("✅ Payment confirmed & email sent!");
+      modal.setAttribute("aria-hidden", "true");
+      window.location.href = "index.html";
 
     } catch (err) {
-      console.error("❌ EmailJS Error:", err);
+      console.error(err);
       alert("❌ Email sending failed. Check template variables.");
     }
   };
