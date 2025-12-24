@@ -1,5 +1,6 @@
 // ------------------------------------------------------
-// Smiley Cars — script.js (FINAL FIXED VERSION)
+// Smiley Cars — script.js
+// FINAL CLEAN VERSION (NO EMAIL)
 // ------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,7 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ================= RENT PAGE ================= */
 function initRentWizard() {
 
-  document.getElementById("toReview").addEventListener("click", e => {
+  const toReview = document.getElementById("toReview");
+  const backBtn = document.getElementById("backToDetails");
+  const confirmBtn = document.getElementById("confirmBooking");
+
+  toReview.onclick = e => {
     e.preventDefault();
 
     const required = ["w_name", "w_phone", "w_from", "w_to"];
@@ -32,21 +37,21 @@ function initRentWizard() {
       }
     }
 
-    document.getElementById("r_name").textContent = w_name.value;
-    document.getElementById("r_phone").textContent = w_phone.value;
-    document.getElementById("r_passengers").textContent = w_passengers.value;
-    document.getElementById("r_rentalType").textContent =
+    r_name.textContent = w_name.value;
+    r_phone.textContent = w_phone.value;
+    r_passengers.textContent = w_passengers.value;
+    r_rentalType.textContent =
       w_rentalType.value === "self_drive" ? "Self Drive" : "With Driver";
-    document.getElementById("r_days").textContent = w_days.value;
-    document.getElementById("r_pickup").textContent = w_from.value;
-    document.getElementById("r_drop").textContent = w_to.value;
+    r_days.textContent = w_days.value;
+    r_pickup.textContent = w_from.value;
+    r_drop.textContent = w_to.value;
 
-    showWizardStep(2);
-  });
+    showStep(2);
+  };
 
-  document.getElementById("backToDetails").onclick = () => showWizardStep(1);
+  backBtn.onclick = () => showStep(1);
 
-  document.getElementById("confirmBooking").onclick = e => {
+  confirmBtn.onclick = e => {
     e.preventDefault();
 
     const booking = {
@@ -58,7 +63,8 @@ function initRentWizard() {
       days: w_days.value,
       pickup: w_from.value,
       drop: w_to.value,
-      paymentStatus: "pending"
+      paymentStatus: "pending",
+      createdAt: new Date().toISOString()
     };
 
     const list = JSON.parse(localStorage.getItem("smiley_bookings") || "[]");
@@ -69,7 +75,7 @@ function initRentWizard() {
   };
 }
 
-function showWizardStep(step) {
+function showStep(step) {
   document.querySelectorAll(".step").forEach(s =>
     s.classList.toggle("active", +s.dataset.step === step)
   );
@@ -84,8 +90,9 @@ function initPaymentPage() {
   const modal = document.getElementById("paymentModal");
 
   paidButtonPayPage.onclick = () => {
-    if (!JSON.parse(localStorage.getItem("smiley_bookings") || "[]").length) {
-      alert("No booking found");
+    const bookings = JSON.parse(localStorage.getItem("smiley_bookings") || "[]");
+    if (!bookings.length) {
+      alert("No booking found.");
       return;
     }
     modal.setAttribute("aria-hidden", "false");
@@ -94,45 +101,26 @@ function initPaymentPage() {
   modalClose.onclick = cancelPaid.onclick = () =>
     modal.setAttribute("aria-hidden", "true");
 
-  confirmPaid.onclick = async () => {
+  confirmPaid.onclick = () => {
 
     const payorName = payorNameInput.value.trim();
-    const payorEmail = payorEmailInput.value.trim();
     const txnId = txnIdInput.value.trim();
 
-    if (!payorName || !payorEmail || !txnId) {
-      alert("Please fill all payment details");
+    if (!payorName || !txnId) {
+      alert("Please enter payment details");
       return;
     }
 
-    const booking = JSON.parse(localStorage.getItem("smiley_bookings"))[0];
+    const bookings = JSON.parse(localStorage.getItem("smiley_bookings"));
+    bookings[0].paymentStatus = "paid";
+    bookings[0].payorName = payorName;
+    bookings[0].transactionId = txnId;
+    bookings[0].paymentConfirmedAt = new Date().toISOString();
 
-    try {
-      await emailjs.send(
-        "service_y364n5h",
-        "template_lvj5bx7",
-        {
-          booking_id: booking.id,
-          name: booking.name,
-          phone: booking.phone,
-          pickup: booking.pickup,
-          drop: booking.drop,
-          passengers: booking.passengers,
-          rentalType: booking.rentalType,
-          days: booking.days,
-          payor_name: payorName,
-          payor_email: payorEmail,
-          transaction_id: txnId
-        }
-      );
+    localStorage.setItem("smiley_bookings", JSON.stringify(bookings));
 
-      alert("✅ Payment confirmed & email sent!");
-      modal.setAttribute("aria-hidden", "true");
-      window.location.href = "index.html";
-
-    } catch (err) {
-      console.error(err);
-      alert("❌ Email sending failed. Check template variables.");
-    }
+    alert("✅ Payment confirmed successfully!");
+    modal.setAttribute("aria-hidden", "true");
+    window.location.href = "index.html";
   };
 }
